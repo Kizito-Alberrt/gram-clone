@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('gram.urls')),
     path('accounts/', include('allauth.urls')),
+    path('insta/', include('insta.urls')),
 ]

@@ -139,3 +139,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'index'
+
+ACCOUNTS_EMAIL_REQUIRED = True
+EMAIL_BACKEND = 'django.core.mail.backend.console.EmailBackend'
