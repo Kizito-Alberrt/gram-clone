@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.views import View
-from .models import post
-from .forms import PostForm
+from .models import post,UserProfile
+from .forms import PostForm,CommentForm
 # Create your views here.
 
 
 class PostListView(View):
     def get(self, request, *args, **kwargs):
         posts = post.objects.all().order_by('created_on')
-        form =PostForm
+        form =PostForm()
 
         context = {
             'post_list': posts,
@@ -35,10 +35,27 @@ class PostListView(View):
 
 class PostDetailView(View):
     def get(self, request, pk, *args, **kwargs):
-        post = post.object.get(pk=pk)
+        post = post.objects.get(pk=pk)
+        form = CommentForm()
 
         context = {
-            'post': post
+            'post': post,
+            'form': form
         }
 
         return render(request, 'insta/post_detail.html', context)
+
+
+class ProfileView(View):
+    def get(self,request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        user = profile.user
+        posts = post.objects.filter(author=user).order_by('created_on')
+
+        context = {
+
+            'user': user,
+            'profile': profile,
+            'posts': posts
+        }
+        return render(request, 'insta/profile.html', context)
